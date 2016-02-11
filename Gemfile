@@ -49,3 +49,12 @@ end
 gem 'devise'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+
+gem 'passenger'
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-rbenv', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+end
