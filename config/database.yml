@@ -19,7 +19,6 @@ default: &default
 
 development:
   <<: *default
-  socket: /var/run/mysqld/mysqld.sock
   database: spell-bingo_development
 
 staging:
