@@ -47,6 +47,9 @@ end
 
 # additional gems
 gem 'devise'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 
