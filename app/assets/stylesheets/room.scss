@@ -2,14 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#room-list {
-  height: 400px;
+.icon_setting {
+  width: 30%;
+  height: 30%;
+}
+.room_icons {
+  background-color: inherit;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60px;
-  background-color: #f505f5;
+#room-list {
+
+}
+
+#rooms {
+  height: 400px;
 }

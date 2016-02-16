@@ -1,0 +1,46 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+
+update_room_list = ->
+  $("#room-list").html("")
+
+  setting_icon = '<%= image_path("icons/setting.png") %>'
+
+  $.ajax({
+    url: '/room/get_list',
+    type: 'get',
+    data: {},
+    dataType: 'json'
+    success: (data)->
+      for room in data
+        roomname = "room" + room.id
+        if room.name != null
+          roomname = room.name
+
+        li = "<li class='list-group-item'>"
+        li += roomname
+        li += "<div class='badge room_icons'>"
+        li += "<img class='icon_setting' src='" + setting_icon + "'>" + "</span>"
+        li += "</div>"
+        li += "</li>"
+
+        $("#room-list").append(li)
+        #console.log room
+  })
+
+create_room = ->
+  $.ajax({
+    url: '/room/create',
+    type: 'post',
+    data: {},
+    dataType: 'json'
+    success: (data)->
+      ""
+  })
+  update_room_list()
+
+$(document).on('ready page:load', ->
+  update_room_list()
+  $("#create_room_button").click(create_room)
+)
