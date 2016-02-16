@@ -1,5 +1,20 @@
 <h1>test page</h1>
 
+<% if user_signed_in? %>
+  <div>
+    ようこそ<%= current_user.username %>さん
+  </div>
+
+  <div>
+    <%= link_to 'プロフィール変更', edit_user_registration_path %>
+    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+  </div>
+<% else %>
+  <div>
+    <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>
+  </div>
+<% end %>
+
 <ul class="list-group">
   <li class="list-group-item list-group-item-info">room 1</li>
   <li class="list-group-item">room 2</li>
