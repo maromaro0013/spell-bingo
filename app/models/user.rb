@@ -1,12 +1,15 @@
 class User < ActiveRecord::Base
   has_many :rooms
-  has_many :room_members
+  has_one :room_member
+
+  attr_accessor :login
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:twitter, :facebook]
+  devise :authentication_keys => [:login]
 
   def self.from_omniauth(auth)
    where(provider: auth["provider"], uid: auth["uid"]).first_or_create do |user|
@@ -25,6 +28,15 @@ class User < ActiveRecord::Base
    else
        super
    end
+  end
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["username = :value OR lower(email) = lower(:value)", { :value => login }]).first
+    else
+      where(conditions).first
+    end
   end
 
   def password_required?

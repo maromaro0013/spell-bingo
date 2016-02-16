@@ -1,3 +1,15 @@
 // Place all the styles related to the room controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#room-list {
+  height: 400px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #f505f5;
+}

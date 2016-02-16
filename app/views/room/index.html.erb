@@ -1,3 +1,10 @@
+<% content_for :add_css_include do %>
+	<%= stylesheet_link_tag 'room-app', media: 'all', 'data-turbolinks-track' => true %>
+<% end %>
+<% content_for :add_js_include do %>
+	<%= javascript_include_tag 'room-app', 'data-turbolinks-track' => true %>
+<% end %>
+
 <div class="jumbotron">
   <h1>単語ビンゴ</h1>
 </div>
@@ -13,12 +20,19 @@
   </div>
 <% else %>
   <div>
-    <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>
+    <%= link_to "サインアップ", new_user_registration_path %><br>
+    <%= link_to "ログイン", new_user_session_path %>
   </div>
 <% end %>
 
-<ul class="list-group">
-  <li class="list-group-item list-group-item-info">room 1</li>
-  <li class="list-group-item">room 2</li>
-  <li class="list-group-item">room 3</li>
-</ul>
+<div id="room-list">
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-info">room 1</li>
+    <li class="list-group-item">room 2</li>
+    <li class="list-group-item">room 3</li>
+  </ul>
+
+  <div class="text-center">
+    <button id="create_room_button" class="">Create new room</button>
+  </div>
+</div>

@@ -3,8 +3,14 @@
 <head>
   <title>SpellBingo</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= yield :add_css_include %>
+
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= yield :add_js_include %>
+
   <%= csrf_meta_tags %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 </head>
 <body>
   <header>
