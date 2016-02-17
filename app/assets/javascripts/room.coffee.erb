@@ -2,10 +2,31 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+setting_btn = ->
+  ""
+
+destroy_btn = ->
+  number =  $(this).parent().attr("number")
+  console.log number
+
+  $.ajax({
+    url: '/room/destroy',
+    type: 'delete',
+    data: {id: number},
+    dataType: 'json'
+    success: (data)->
+      update_room_list()
+  })
+
+login_btn = ->
+  console.log "login"
+
 update_room_list = ->
   $("#room-list").html("")
 
   setting_icon = '<%= image_path("icons/setting.png") %>'
+  destroy_icon = '<%= image_path("icons/destroy.png") %>'
+  login_door_icon = '<%= image_path("icons/login_door.png") %>'
 
   $.ajax({
     url: '/room/get_list',
@@ -14,19 +35,25 @@ update_room_list = ->
     dataType: 'json'
     success: (data)->
       for room in data
-        roomname = "room" + room.id
+        roomid = "room" + room.id
+        roomname = roomid
         if room.name != null
           roomname = room.name
 
         li = "<li class='list-group-item'>"
         li += roomname
-        li += "<div class='badge room_icons'>"
-        li += "<img class='icon_setting' src='" + setting_icon + "'>" + "</span>"
+        li += "<div " + "id='" + roomid + "'" + "number='" + room.id + "'" + "class='room_icons'>"
+        li += "<img class='icon_setting' src='" + setting_icon + "'/>　"
+        li += "<img class='icon_destroy' src='" + destroy_icon + "'/>　"
+        li += "<img class='icon_login_door' src='" + login_door_icon + "'/>"
         li += "</div>"
         li += "</li>"
 
         $("#room-list").append(li)
-        #console.log room
+
+      $(".icon_setting").click(setting_btn)
+      $(".icon_destroy").click(destroy_btn)
+      $(".icon_login_door").click(login_btn)
   })
 
 create_room = ->

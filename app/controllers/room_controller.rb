@@ -25,4 +25,16 @@ class RoomController < ApplicationController
       }
     end
   end
+
+  def destroy
+    room = Room.find(params[:id])
+    room.destroy
+
+    respond_to do |format|
+      format.json {
+        ret = {'status' => 'succeed'}
+        render :json => ret
+      }
+    end
+  end
 end

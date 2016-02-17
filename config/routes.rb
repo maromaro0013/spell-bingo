@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get '/room/index' => 'room#index', as: :room_index
   post '/room/create' => 'room#create', as: :room_create
   get '/room/get_list' => 'room#get_list', as: :room_get_list
+  delete '/room/destroy' => 'room#destroy', as: :room_destroy
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

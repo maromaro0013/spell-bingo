@@ -2,16 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.icon_setting {
-  width: 30%;
-  height: 30%;
+.room_icons img {
+  width: 12%;
+  height: 12%;
 }
+
 .room_icons {
+  margin-top: 0;
+  padding: 0;
+  display: inline-block;
   background-color: inherit;
-}
-
-#room-list {
-
+  float:right;
+  text-align:right;
 }
 
 #rooms {
