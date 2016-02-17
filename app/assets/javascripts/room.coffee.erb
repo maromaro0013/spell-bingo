@@ -3,11 +3,12 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 setting_btn = ->
-  ""
+  number =  $(this).parent().attr("number")
+  link = "/room/edit/" + number
+  location.href = link
 
 destroy_btn = ->
   number =  $(this).parent().attr("number")
-  console.log number
 
   $.ajax({
     url: '/room/destroy',
@@ -67,7 +68,20 @@ create_room = ->
   })
   update_room_list()
 
+create_room_spell = ->
+  room_id = window.location.href.split('/').pop()
+
+  $.ajax({
+    url: '/room/edit/' + room_id + '/create_spell',
+    type: 'post',
+    data: {},
+    dataType: 'json'
+    success: (data)->
+      ""
+  })
+
 $(document).on('ready page:load', ->
   update_room_list()
   $("#create_room_button").click(create_room)
+  $("#create_spell_button").click(create_room_spell)
 )

@@ -1,0 +1,19 @@
+<% content_for :add_css_include do %>
+	<%= stylesheet_link_tag 'room-app', media: 'all', 'data-turbolinks-track' => true %>
+<% end %>
+<% content_for :add_js_include do %>
+	<%= javascript_include_tag 'room-app', 'data-turbolinks-track' => true %>
+<% end %>
+
+<div class="jumbotron">
+  <h1><%= @room.name %></h1>
+</div>
+
+<div id="spells">
+  <ul id="spell-list" class="list-group">
+  </ul>
+
+  <div class="text-center">
+    <button type="button" id="create_spell_button">Create new spell</button>
+  </div>
+</div>
