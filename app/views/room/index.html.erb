@@ -2,7 +2,7 @@
 	<%= stylesheet_link_tag 'room-app', media: 'all', 'data-turbolinks-track' => true %>
 <% end %>
 <% content_for :add_js_include do %>
-	<%= javascript_include_tag 'room-app', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'room/room-app', 'data-turbolinks-track' => true %>
 <% end %>
 
 <div class="jumbotron">
@@ -15,8 +15,8 @@
   </div>
 
   <div>
-    <%= link_to 'プロフィール変更', edit_user_registration_path %>
-    <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+    <%= link_to "プロフィール変更", edit_user_registration_path %>
+    <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
   </div>
 <% else %>
   <div>

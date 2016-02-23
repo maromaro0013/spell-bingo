@@ -46,13 +46,30 @@ class RoomController < ApplicationController
 
   def create_spell
     room = Room.find(params[:id])
-    spell = room.spells.new()
-    spell.save
+    status = ""
+    if room.spells.count >= 24
+      status = "failed"
+    else
+      status = "succeed"
+      spell = room.spells.new(name: 'spell')
+      spell.save
+    end
 
     respond_to do |format|
       format.json {
-        ret = {'status' => 'succeed'}
+        ret = {'status' => status}
         render :json => ret
+      }
+    end
+  end
+
+  def get_spells
+    room = Room.find(params[:id])
+    ret = room.spells.select(:id, :name)
+
+    respond_to do |format|
+      format.json {
+        render :json => ret.to_json
       }
     end
   end

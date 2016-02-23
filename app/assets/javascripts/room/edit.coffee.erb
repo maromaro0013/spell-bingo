@@ -1,0 +1,49 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+
+blur_spell = ->
+  console.log "blur_spell"
+
+clicked_spell = ->
+  name = $(this).find(".spell-name").text()
+  if name.length <= 0
+    return
+
+  $(this).find(".spell-name").remove()
+
+  elm = "<input type='text' class='input_name' />"
+  $(this).append(elm)
+  $(".input_name").blur(blur_spell)
+
+create_room_spell = ->
+  room_id = window.location.href.split('/').pop()
+  $.ajax({
+    url: '/room/edit/' + room_id + '/create_spell',
+    type: 'post',
+    data: {},
+    dataType: 'json'
+    success: (data)->
+      update_spell_list()
+  })
+
+update_spell_list = ->
+  room_id = window.location.href.split('/').pop()
+  $.ajax({
+    url: '/room/edit/' + room_id + '/get_spells',
+    type: 'post',
+    data: {},
+    dataType: 'json'
+    success: (data)->
+      for spell in data
+        li = "<li class='list-group-item'>"
+        li += "<span class='spell-name'>" + spell.name + "</span>"
+        li += "</li>"
+        $("#spell-list").append(li)
+      $(".list-group-item").click(clicked_spell)
+  })
+
+$(document).on('ready page:load', ->
+  update_spell_list()
+  $("#create_spell_button").click(create_room_spell)
+)
