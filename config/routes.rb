@@ -17,11 +17,12 @@ Rails.application.routes.draw do
   get '/room/get_list' => 'room#get_list', as: :room_get_list
   delete '/room/destroy' => 'room#destroy', as: :room_destroy
   get '/room/edit/:id' => 'room#edit', as: :room_edit
-
   post '/room/edit/:id/create_spell' => 'room#create_spell', as: :room_create_spell
   post '/room/edit/:id/get_spells' => 'room#get_spells', as: :room_get_spells
 
   post '/spell/edit' => 'spell#edit', as: :spell_edit
+
+  get 'game/:room_id/index' => 'game#index', as: :game_index
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
