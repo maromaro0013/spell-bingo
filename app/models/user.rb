@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :rooms
   has_one :room_member
+  has_many :spell_sheets
 
   attr_accessor :login
 

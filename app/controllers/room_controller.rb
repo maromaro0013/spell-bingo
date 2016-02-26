@@ -30,6 +30,7 @@ class RoomController < ApplicationController
 
   def destroy
     room = Room.find(params[:id])
+    room.spells.destroy_all
     room.destroy
 
     respond_to do |format|

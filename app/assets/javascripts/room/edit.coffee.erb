@@ -33,7 +33,6 @@ clicked_spell = ->
 
   $(this).append(elm)
   elm.focus()
-  #elm.blur(blur_spell)
   elm.change(change_spell)
 
 create_room_spell = ->
@@ -63,6 +62,11 @@ update_spell_list = ->
         li += "</li>"
         $("#spell-list").append(li)
       $(".list-group-item").click(clicked_spell)
+
+      if (data.length >= 24)
+        $("#create_spell_button").hide()
+      else
+        $("#create_spell_button").show()
   })
 
 $(document).on('ready page:load', ->

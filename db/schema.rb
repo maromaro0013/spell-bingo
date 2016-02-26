@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217095449) do
+ActiveRecord::Schema.define(version: 20160226103940) do
 
   create_table "room_members", force: :cascade do |t|
     t.integer  "room_id",    limit: 4
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20160217095449) do
     t.integer  "user_id",    limit: 4
     t.string   "name",       limit: 32
     t.boolean  "alive",                 default: true, null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  create_table "spell_sheets", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "room_id",    limit: 4
+    t.integer  "spell_id",   limit: 4
+    t.integer  "sort",       limit: 4
+    t.boolean  "pushed",               default: false, null: false
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
   end
