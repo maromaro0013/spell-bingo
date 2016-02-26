@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   post '/room/edit/:id/create_spell' => 'room#create_spell', as: :room_create_spell
   post '/room/edit/:id/get_spells' => 'room#get_spells', as: :room_get_spells
 
+  post '/spell/edit' => 'spell#edit', as: :spell_edit
+
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
