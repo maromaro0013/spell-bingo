@@ -79,9 +79,9 @@ $(document).on('ready page:load', ->
     dataType: 'json'
     success: (data)->
       m_config = data
+      update_spell_list()
   })
 
-  update_spell_list()
   $("#create_spell_button").click(create_room_spell)
   $("#back_button").click( ->
     location.href = '/room/index'

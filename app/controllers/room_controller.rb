@@ -20,6 +20,13 @@ class RoomController < ApplicationController
     room.name = "room" + room.id.to_s
     room.save
 
+    spell_max = SpellBingo::Application.config.spell_max
+    for num in (1..spell_max) do
+      name = "spell" + num.to_s
+      new_spell = Spell.new(room_id: room.id, name: name)
+      new_spell.save
+    end
+
     respond_to do |format|
       format.json {
         ret = {'status' => 'succeed'}
@@ -31,6 +38,7 @@ class RoomController < ApplicationController
   def destroy
     room = Room.find(params[:id])
     room.spells.destroy_all
+    room.spell_sheets.destroy_all
     room.destroy
 
     respond_to do |format|

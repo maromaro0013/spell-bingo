@@ -8,18 +8,24 @@ class SpellSheet < ActiveRecord::Base
   end
 
   def SpellSheet.create_sheets(user:, room:)
-    self.delete_from_user(user: user)
+    self.delete_sheets(user: user, room: room)
     user_id = user.id
     spell_max = SpellBingo::Application.config.spell_max
 
-    spells = Spell.where(room_id: room.id).pluck
+    spells = Spell.where(room_id: room.id).pluck(:id)
     if (spells.count != spell_max)
       raise "error spells_count"
     end
     spells.shuffle!
 
-    spells.each{|key, value|
-      logger.debug "mokyun" + value.to_s
+    spells.each{|value|
+      append = self.new(user_id: user_id, room_id: room.id, spell_id: value)
+      append.save
     }
+  end
+
+  def push_spell
+    self.pushed = 1
+    self.save
   end
 end
