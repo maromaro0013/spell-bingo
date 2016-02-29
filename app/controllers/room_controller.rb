@@ -46,9 +46,10 @@ class RoomController < ApplicationController
   end
 
   def create_spell
+    spell_max = SpellBingo::Application.config.spell_max
     room = Room.find(params[:id])
     status = ""
-    if room.spells.count >= 24
+    if room.spells.count >= spell_max
       status = "failed"
     else
       status = "succeed"

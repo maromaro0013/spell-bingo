@@ -2,6 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+m_config = ""
+
 change_spell = ->
   new_name = $(this).val()
   spell_id = $(this).attr("spell_id")
@@ -63,13 +65,22 @@ update_spell_list = ->
         $("#spell-list").append(li)
       $(".list-group-item").click(clicked_spell)
 
-      if (data.length >= 24)
+      if (data.length >= m_config["spell_max"])
         $("#create_spell_button").hide()
       else
         $("#create_spell_button").show()
   })
 
 $(document).on('ready page:load', ->
+  $.ajax({
+    url: '/config/index',
+    type: 'get',
+    data: {},
+    dataType: 'json'
+    success: (data)->
+      m_config = data
+  })
+
   update_spell_list()
   $("#create_spell_button").click(create_room_spell)
   $("#back_button").click( ->

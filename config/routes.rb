@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
   get 'game/:room_id/index' => 'game#index', as: :game_index
 
+  get 'config/index' => 'config#index', as: :config_index
+
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 

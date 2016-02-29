@@ -22,5 +22,8 @@ module SpellBingo
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # ビンゴの単語リスト数(maromaro0013)
+    config.spell_max = 24
   end
 end

@@ -20,7 +20,9 @@ destroy_btn = ->
   })
 
 login_btn = ->
-  console.log "login"
+  number =  $(this).parent().attr("number")
+  link = "/game/" + number + "/index"
+  location.href = link
 
 update_room_list = ->
   $("#room-list").html("")
