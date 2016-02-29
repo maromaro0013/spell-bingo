@@ -1,5 +1,5 @@
 <% content_for :add_css_include do %>
-	<%= stylesheet_link_tag 'room-app', media: 'all', 'data-turbolinks-track' => true %>
+	<%= stylesheet_link_tag 'room/room-app', media: 'all', 'data-turbolinks-track' => true %>
 <% end %>
 <% content_for :add_js_include do %>
 	<%= javascript_include_tag 'room/room-edit-app', 'data-turbolinks-track' => true %>
@@ -13,7 +13,7 @@
   <ul id="spell-list" class="list-group">
   </ul>
 
-  <div class="text-center">
+  <div class="text-center footer-buttons">
 		<button type="button" id="back_button">Back</button>　
     <button type="button" id="create_spell_button">Create new spell</button>
   </div>

@@ -1,5 +1,5 @@
 <% content_for :add_css_include do %>
-	<%= stylesheet_link_tag 'room-app', media: 'all', 'data-turbolinks-track' => true %>
+	<%= stylesheet_link_tag 'room/room-app', media: 'all', 'data-turbolinks-track' => true %>
 <% end %>
 <% content_for :add_js_include do %>
 	<%= javascript_include_tag 'room/room-app', 'data-turbolinks-track' => true %>
@@ -29,7 +29,7 @@
   <ul id="room-list" class="list-group">
   </ul>
 
-  <div class="text-center">
+  <div class="text-center footer-buttons">
     <button type="button" id="create_room_button">Create new room</button>
   </div>
 </div>

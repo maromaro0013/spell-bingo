@@ -11,5 +11,5 @@
  * file per style scope.
  *
  *= require bootstrap_and_overrides
- *= require room
+ *= require room/room
  */
