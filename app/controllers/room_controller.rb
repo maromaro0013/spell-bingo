@@ -39,6 +39,7 @@ class RoomController < ApplicationController
     room = Room.find(params[:id])
     room.spells.destroy_all
     room.spell_sheets.destroy_all
+    room.room_members.destroy_all
     room.destroy
 
     respond_to do |format|
