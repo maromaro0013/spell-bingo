@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   post '/spell/edit' => 'spell#edit', as: :spell_edit
 
   get 'game/:room_id/index' => 'game#index', as: :game_index
+  post 'game/:room_id/info' => 'game#info', as: :game_info
 
   get 'config/index' => 'config#index', as: :config_index
 
