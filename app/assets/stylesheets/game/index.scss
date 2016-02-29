@@ -1,3 +1,13 @@
 // Place all the styles related to the game controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#game-spells {
+  margin-top: 5%;
+  margin-left: 5%;
+  width: 90%;
+}
+
+#game-spells td {
+  height: 50px;
+}

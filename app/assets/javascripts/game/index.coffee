@@ -5,6 +5,39 @@
 m_room_id = ""
 m_game_info = ""
 
+update_spell_table = ->
+  $("#game-spells tr").remove()
+
+  spells = m_game_info["spells"]
+
+  count = 0
+  for spell in spells
+    if (count % m_game_info["spell_row_max"] == 0)
+      tr = $("<tr>", {})
+      td = $("<td>", {
+        text: spell["name"]
+      })
+      tr.append(td)
+    else if (count == m_game_info["spell_center"])
+      td = $("<td>", {
+        text: ""
+      })
+      tr.append(td)
+      td = $("<td>", {
+        text: spell["name"]
+      })
+      tr.append(td)
+      count += 1
+    else
+      td = $("<td>", {
+        text: spell["name"]
+      })
+      tr.append(td)
+
+    count += 1
+    if (count % m_game_info["spell_row_max"] == 0)
+      $("#game-spells").append(tr)
+
 update_game_info = ->
   $.ajax({
     url: '/game/' + m_room_id + '/info',
@@ -13,7 +46,7 @@ update_game_info = ->
     dataType: 'json'
     success: (data)->
       m_game_info = data
-      console.log data
+      update_spell_table()
   })
 
 $(document).on('ready page:load', ->
