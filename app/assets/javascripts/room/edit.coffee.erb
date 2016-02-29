@@ -4,6 +4,17 @@
 
 m_config = ""
 
+wiki_button = ->
+  room_id = window.location.href.split('/').pop()
+  $.ajax({
+    url: '/room/edit/' + room_id + '/create_spell_from_wikipedia',
+    type: 'post',
+    data: {},
+    dataType: 'json'
+    success: (data)->
+      update_spell_list()
+  })
+
 change_spell = ->
   new_name = $(this).val()
   spell_id = $(this).attr("spell_id")
@@ -83,6 +94,8 @@ $(document).on('ready page:load', ->
   })
 
   $("#create_spell_button").click(create_room_spell)
+  $("#wiki_button").click(wiki_button)
+
   $("#back_button").click( ->
     location.href = '/room/index'
   )

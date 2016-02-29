@@ -1,4 +1,7 @@
 class RoomController < ApplicationController
+  require 'open-uri'
+  require 'json'
+
   before_filter :authenticate_user!
 
   def index
@@ -70,6 +73,39 @@ class RoomController < ApplicationController
       format.json {
         ret = {'status' => status}
         render :json => ret
+      }
+    end
+  end
+
+  def create_spell_from_wikipedia
+    u = "https://ja.wikipedia.org/w/api.php?format=json&action=query&list=random&rnnamespace=0"
+    u += "&rnlimit=" + SpellBingo::Application.config.spell_max.to_s
+
+    room = Room.find(params[:id])
+
+    res = open(u)
+    code, message = res.status
+
+    if code == '200'
+      result = JSON.parse(res.read)
+      query = result["query"]["random"]
+      count = 0
+      spells = room.spells
+
+      spells.each {|spell|
+        spell.name = query[count]["title"]
+        count += 1
+        spell.save
+      }
+
+    else
+      logger.debug "create_spell_from_wikipedia:failed:" + u
+    end
+
+    respond_to do |format|
+      format.json {
+        ret = {'status' => 'succeed'}
+        render :json => ret.to_json
       }
     end
   end
