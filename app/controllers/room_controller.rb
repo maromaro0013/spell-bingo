@@ -15,6 +15,10 @@ class RoomController < ApplicationController
       obj = {}
       obj[:id] = room.id
       obj[:user_name] = room.user.username
+      obj[:destroyable] = false
+      if room.user_id == current_user.id
+        obj[:destroyable] = true
+      end
       obj[:name] = room.name
       ret << obj
     }

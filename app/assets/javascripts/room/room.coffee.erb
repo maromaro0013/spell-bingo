@@ -38,7 +38,6 @@ update_room_list = ->
     dataType: 'json'
     success: (data)->
       for room in data
-        console.log room
         roomid = "room" + room.id
         roomname = roomid
         if room.name != null
@@ -46,11 +45,19 @@ update_room_list = ->
 
         #roomname += ":@" + room.user_name
 
-        li = "<li class='list-group-item'>"
+        li = ""
+        li += "<li class='list-group-item'>"
+
         li += roomname
-        li += "<div " + "id='" + roomid + "'" + "number='" + room.id + "'" + "class='room_icons'>"
-        li += "<img class='icon_setting' src='" + setting_icon + "'/>　"
-        li += "<img class='icon_destroy' src='" + destroy_icon + "'/>　"
+        if (room.destroyable == true)
+          li += "<div " + "id='" + roomid + "'" + "number='" + room.id + "'" + "class='room_icons room_icons3'>"
+        else
+          li += "<div " + "id='" + roomid + "'" + "number='" + room.id + "'" + "class='room_icons room_icons1'>"
+
+        if (room.destroyable == true)
+          li += "<img class='icon_setting' src='" + setting_icon + "'/>　"
+          li += "<img class='icon_destroy' src='" + destroy_icon + "'/>　"
+
         li += "<img class='icon_login_door' src='" + login_door_icon + "'/>"
         li += "</div>"
         li += "</li>"
