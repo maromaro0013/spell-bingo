@@ -29,13 +29,13 @@ change_spell = ->
   })
 
 clicked_spell = ->
-  name = $(this).find(".spell-name").text()
-  if name.length <= 0
+  text = $(this).text()
+  if text.length <= 0
     return
 
-  text = $(this).find(".spell-name").text()
-  spell_id = $(this).find(".spell-name").attr("spell_id")
-  $(this).find(".spell-name").remove()
+  spell_id = $(this).attr("spell_id")
+
+  $(this).text("")
 
   elm = $("<input>", {
     type: "text",
@@ -59,6 +59,17 @@ create_room_spell = ->
       update_spell_list()
   })
 
+append_spell_element = (tr, spell) ->
+  class_name = "spell_cell"
+
+  sheet_id = spell["sheet_id"]
+  td = $("<td>", {
+    text: spell["name"],
+    spell_id: spell["id"],
+    class: class_name
+  })
+  tr.append(td)
+
 update_spell_list = ->
   room_id = window.location.href.split('/').pop()
 
@@ -68,14 +79,29 @@ update_spell_list = ->
     data: {},
     dataType: 'json'
     success: (data)->
-      $("#spell-list .list-group-item").remove()
-      for spell in data
-        li = "<li class='list-group-item'>"
-        li += "<span class='spell-name' spell_id='" + spell.id + "'>" + spell.name + "</span>"
-        li += "</li>"
-        $("#spell-list").append(li)
-      $(".list-group-item").click(clicked_spell)
+      $("#game-spells tr").remove()
 
+      count = 0
+      for spell in data
+        if (count % m_config["spell_row_max"] == 0)
+          tr = $("<tr>", {})
+          append_spell_element(tr, spell)
+        else if (count == m_config["spell_center"])
+          td = $("<td>", {
+            text: ""
+          })
+          tr.append(td)
+          append_spell_element(tr, spell)
+          count += 1
+        else
+          append_spell_element(tr, spell)
+
+        count += 1
+        if (count % m_config["spell_row_max"] == 0)
+          $("#game-spells").append(tr)
+
+
+      $(".spell_cell").click(clicked_spell)
       if (data.length >= m_config["spell_max"])
         $("#create_spell_button").hide()
       else

@@ -20,7 +20,6 @@ click_spell = ->
 
 append_spell_element = (tr, spell) ->
   class_name = "spell_cell"
-  console.log spell
   if (spell["pushed"] == true)
     class_name += " pushed_spell"
 
