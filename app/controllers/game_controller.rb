@@ -3,7 +3,7 @@ class GameController < ApplicationController
     room = Room.find params[:room_id]
 
     # シートを持っていない人は必ずシート作成する
-    if (current_user.spell_sheets.count <= 0)
+    if (current_user.spell_sheets.where(room_id: room.id).count <= 0)
       SpellSheet.create_sheets(user: current_user, room: room)
     end
     # 初入場の場合はRoomMemberを新たに作成
@@ -24,13 +24,33 @@ class GameController < ApplicationController
 
     spells.each {|value|
       obj = {}
+      obj[:sheet_id] = value.id
+      obj[:spell_id] = value.spell_id
       obj[:pushed] = value.pushed
       obj[:name] = value.spell.name
       ret[:spells] << obj
     }
 
     ret[:status] = "succeed"
+    respond_to do |format|
+      format.json {
+        render :json => ret
+      }
+    end
+  end
 
+  def toggle_sheet
+    #room = Room.find params[:room_id]
+    sheet = SpellSheet.find params[:sheet_id]
+    if (sheet.pushed == false)
+      sheet.pushed = true
+    else
+      sheet.pushed = false
+    end
+    sheet.save
+
+    ret = {}
+    ret[:status] = "succeed"
     respond_to do |format|
       format.json {
         render :json => ret

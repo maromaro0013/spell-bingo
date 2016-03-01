@@ -5,6 +5,33 @@
 m_room_id = ""
 m_game_info = ""
 
+click_spell = ->
+  sheet_id = $(this).attr("sheet_id")
+  elm = $(this)
+
+  $.ajax({
+    url: '/game/' + m_room_id + '/toggle_sheet',
+    type: 'post',
+    data: {sheet_id: sheet_id},
+    dataType: 'json'
+    success: (data)->
+      elm.toggleClass("pushed_spell")
+  })
+
+append_spell_element = (tr, spell) ->
+  class_name = "spell_cell"
+  console.log spell
+  if (spell["pushed"] == true)
+    class_name += " pushed_spell"
+
+  sheet_id = spell["sheet_id"]
+  td = $("<td>", {
+    text: spell["name"],
+    sheet_id: sheet_id,
+    class: class_name
+  })
+  tr.append(td)
+
 update_spell_table = ->
   $("#game-spells tr").remove()
 
@@ -14,29 +41,22 @@ update_spell_table = ->
   for spell in spells
     if (count % m_game_info["spell_row_max"] == 0)
       tr = $("<tr>", {})
-      td = $("<td>", {
-        text: spell["name"]
-      })
-      tr.append(td)
+      append_spell_element(tr, spell)
     else if (count == m_game_info["spell_center"])
       td = $("<td>", {
         text: ""
       })
       tr.append(td)
-      td = $("<td>", {
-        text: spell["name"]
-      })
-      tr.append(td)
+      append_spell_element(tr, spell)
       count += 1
     else
-      td = $("<td>", {
-        text: spell["name"]
-      })
-      tr.append(td)
+      append_spell_element(tr, spell)
 
     count += 1
     if (count % m_game_info["spell_row_max"] == 0)
       $("#game-spells").append(tr)
+
+  $(".spell_cell").click(click_spell)
 
 update_game_info = ->
   $.ajax({
