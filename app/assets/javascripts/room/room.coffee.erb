@@ -38,10 +38,13 @@ update_room_list = ->
     dataType: 'json'
     success: (data)->
       for room in data
+        console.log room
         roomid = "room" + room.id
         roomname = roomid
         if room.name != null
           roomname = room.name
+
+        roomname += ":@" + room.user_name
 
         li = "<li class='list-group-item'>"
         li += roomname

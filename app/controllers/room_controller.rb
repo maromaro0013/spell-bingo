@@ -8,11 +8,20 @@ class RoomController < ApplicationController
   end
 
   def get_list
-    rooms = Room.select(:id, :user_id, :name, :created_at, :updated_at)
+    rooms = Room.joins(:user).all
+    ret = []
+
+    rooms.each {|room|
+      obj = {}
+      obj[:id] = room.id
+      obj[:user_name] = room.user.username
+      obj[:name] = room.name
+      ret << obj
+    }
 
     respond_to do |format|
       format.json {
-        render :json => rooms.to_json
+        render :json => ret.to_json
       }
     end
   end
