@@ -11,6 +11,8 @@ class RoomController < ApplicationController
     rooms = Room.joins(:user).all
     ret = []
 
+    joined_rooms = current_user.room_members.pluck(:room_id)
+
     rooms.each {|room|
       obj = {}
       obj[:id] = room.id
@@ -19,6 +21,12 @@ class RoomController < ApplicationController
       if room.user_id == current_user.id
         obj[:destroyable] = true
       end
+
+      obj[:is_member] = false
+      if joined_rooms.include?(room.id)
+        obj[:is_member] = true
+      end
+
       obj[:name] = room.name
       ret << obj
     }

@@ -44,6 +44,7 @@ update_spell_table = ->
     else if (count == m_game_info["spell_center"])
       td = $("<td>", {
         text: ""
+        class: "pushed_spell"
       })
       tr.append(td)
       append_spell_element(tr, spell)
@@ -73,4 +74,8 @@ $(document).on('ready page:load', ->
   m_room_id = ary[ary.length - 2]
 
   update_game_info()
+
+  $("#back_button").click( ->
+    location.href = '/room/index'
+  )
 )

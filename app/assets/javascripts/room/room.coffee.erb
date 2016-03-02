@@ -46,7 +46,11 @@ update_room_list = ->
         #roomname += ":@" + room.user_name
 
         li = ""
-        li += "<li class='list-group-item'>"
+        append_clses = ""
+        if room.is_member == true
+          append_clses += " list-group-item-success "
+
+        li += "<li class='list-group-item"  + append_clses + "'>"
 
         li += roomname
         if (room.destroyable == true)
