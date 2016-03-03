@@ -69,12 +69,16 @@ update_game_info = ->
       update_spell_table()
   })
 
+quit_game = ->
+  ""
+
 $(document).on('ready page:load', ->
   ary = window.location.href.split('/')
   m_room_id = ary[ary.length - 2]
 
   update_game_info()
 
+  $("#quit_button").click()
   $("#back_button").click( ->
     location.href = '/room/index'
   )

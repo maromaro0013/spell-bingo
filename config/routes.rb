@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get 'game/:room_id/index' => 'game#index', as: :game_index
   post 'game/:room_id/info' => 'game#info', as: :game_info
   post 'game/:room_id/toggle_sheet' => 'game#toggle_sheet', as: :game_toggle_sheet
+  post 'game/:room_id/retire' => 'game#retire', as: :game_retire
 
   get 'config/index' => 'config#index', as: :config_index
 

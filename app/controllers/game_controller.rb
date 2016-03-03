@@ -40,7 +40,6 @@ class GameController < ApplicationController
   end
 
   def toggle_sheet
-    #room = Room.find params[:room_id]
     sheet = SpellSheet.find params[:sheet_id]
     if (sheet.pushed == false)
       sheet.pushed = true
@@ -48,6 +47,24 @@ class GameController < ApplicationController
       sheet.pushed = false
     end
     sheet.save
+
+    ret = {}
+    ret[:status] = "succeed"
+    respond_to do |format|
+      format.json {
+        render :json => ret
+      }
+    end
+  end
+
+  def quit
+    room_id = params[:room_id]
+
+    member = current_user.room_members.where(room_id: room_id)
+    member.destroy_all
+
+    sheets = current_user.spell_sheets.where(room_id: room_id)
+    sheets.destroy_all
 
     ret = {}
     ret[:status] = "succeed"
