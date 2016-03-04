@@ -21,11 +21,18 @@
   height: 50px;
 }
 
+#game-members .member_tag {
+  margin-bottom: 5px;
+}
+
+.member_tag {
+  display: inline-block;
+}
 .member_tag div {
-  margin-left: 14%;
+  margin-left: 50px;
 }
 .member_tag img {
-  width: 11%;
+  width: 40px;
   float:left;
 }
 
