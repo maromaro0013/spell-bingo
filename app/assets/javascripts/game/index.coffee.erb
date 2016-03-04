@@ -70,7 +70,14 @@ update_game_info = ->
   })
 
 quit_game = ->
-  ""
+  $.ajax({
+    url: '/game/' + m_room_id + '/quit',
+    type: 'post',
+    data: {},
+    dataType: 'json'
+    success: (data)->
+      location.href = '/room/index'
+  })
 
 $(document).on('ready page:load', ->
   ary = window.location.href.split('/')
@@ -78,7 +85,7 @@ $(document).on('ready page:load', ->
 
   update_game_info()
 
-  $("#quit_button").click()
+  $("#quit_button").click(quit_game)
   $("#back_button").click( ->
     location.href = '/room/index'
   )

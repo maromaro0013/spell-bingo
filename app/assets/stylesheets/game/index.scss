@@ -8,8 +8,25 @@
   width: 90%;
 }
 
+#game-members {
+  margin-top: 3%;
+  margin-left: 5%;
+  margin-bottom: 5%;
+  border-collapse: separate;
+  border-spacing: 5px;
+  width: 90%;
+}
+
 #game-spells td {
   height: 50px;
+}
+
+.member_tag div {
+  margin-left: 14%;
+}
+.member_tag img {
+  width: 11%;
+  float:left;
 }
 
 .pushed_spell {
