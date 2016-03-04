@@ -4,6 +4,18 @@
 
 m_room_id = ""
 m_game_info = ""
+m_members_info = ""
+
+update_members_info = ->
+  $.ajax({
+    url: '/game/' + m_room_id + '/members_info',
+    type: 'post',
+    data: {},
+    dataType: 'json'
+    success: (data)->
+      m_members_info = data
+      console.log m_members_info
+  })
 
 click_spell = ->
   sheet_id = $(this).attr("sheet_id")
@@ -84,6 +96,7 @@ $(document).on('ready page:load', ->
   m_room_id = ary[ary.length - 2]
 
   update_game_info()
+  update_members_info()
 
   $("#quit_button").click(quit_game)
   $("#back_button").click( ->
