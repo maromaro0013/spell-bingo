@@ -7,6 +7,21 @@ m_game_info = ""
 m_members_info = ""
 
 update_members_info = ->
+  $("#game-members li").remove()
+
+  members = m_members_info.members
+  for member in members
+    li = ""
+    li +=  "<li class='list-group-item game-member'>"
+    li +=  '<%= image_tag("picts/pict_member_m.png") %>'
+    li +=  "<div>" + member.username + "さん" + "</div>"
+    li +=  "<div>Reach:" + member.reach_count + "</div>"
+    li +=  "<div>Bingo:" + member.bingo_count + "</div>"
+    li +=  "</li>"
+
+    $("#game-members").append(li)
+
+get_members_info = ->
   $.ajax({
     url: '/game/' + m_room_id + '/members_info',
     type: 'post',
@@ -14,7 +29,7 @@ update_members_info = ->
     dataType: 'json'
     success: (data)->
       m_members_info = data
-      console.log m_members_info
+      update_members_info()
   })
 
 click_spell = ->
@@ -28,6 +43,7 @@ click_spell = ->
     dataType: 'json'
     success: (data)->
       elm.toggleClass("pushed_spell")
+      get_members_info()
   })
 
 append_spell_element = (tr, spell) ->
@@ -96,7 +112,7 @@ $(document).on('ready page:load', ->
   m_room_id = ary[ary.length - 2]
 
   update_game_info()
-  update_members_info()
+  get_members_info()
 
   $("#quit_button").click(quit_game)
   $("#back_button").click( ->

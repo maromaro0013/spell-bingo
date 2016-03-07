@@ -85,8 +85,11 @@ class GameController < ApplicationController
     ret[:status] = "succeed"
     ret[:members] = []
 
-    bingo_progress = get_bingo_progress(user: current_user, room_id: room_id)
-    ret[:members] << bingo_progress
+    members.each {|member|
+      user = User.find(member.user_id)
+      bingo_progress = get_bingo_progress(user: user, room_id: room_id)
+      ret[:members] << bingo_progress
+    }
 
     respond_to do |format|
       format.json {
@@ -107,11 +110,46 @@ class GameController < ApplicationController
 
     sheets = user.spell_sheets.where(room_id: room_id)
     ret[:pushed_count] = sheets.where(pushed: true).count
+    ret[:username] = user.username
 
     bingo_table = [
-      [0, 1, 2, 3, 4],
-      [5, 6, 7, 8, 9],
+      [0 , 1 , 2 , 3 , 4],
+      [5 , 6 , 7 , 8 , 9],
+      [10, 11,     12, 13],
+      [14, 15, 16, 17, 18],
+      [19, 20, 21, 22, 23],
+
+      [0, 5, 10, 14, 19],
+      [1, 6, 11, 15, 20],
+      [2, 7,     16, 21],
+      [3, 8, 12, 17, 22],
+      [4, 9, 13, 18, 23],
+
+      [0, 6, 17, 23],
+      [4, 8, 15, 19],
     ]
+
+    #spell_max = SpellBingo::Application.config.spell_max
+    reach_count = 0
+    bingo_count = 0
+    bingo_table.each{|record|
+      max = record.count
+      push_count = 0
+      record.each{|idx|
+        if sheets[idx].pushed == true
+          push_count += 1
+        end
+      }
+
+      if (push_count == max)
+        bingo_count += 1
+      elsif (push_count == (max - 1))
+        reach_count += 1
+      end
+    }
+
+    ret[:reach_count] = reach_count
+    ret[:bingo_count] = bingo_count
 
     return ret
   end
