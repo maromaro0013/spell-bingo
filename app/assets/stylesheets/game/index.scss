@@ -25,6 +25,17 @@
   margin-bottom: 5px;
 }
 
+.game-member img {
+  width: 20px;
+  float:left;
+  margin-right: 10px;
+}
+.game-member div {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/*
 .member_tag {
   display: inline-block;
 }
@@ -35,6 +46,7 @@
   width: 40px;
   float:left;
 }
+*/
 
 .pushed_spell {
   background-color: #f0a0f0;
