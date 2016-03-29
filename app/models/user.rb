@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, omniauth_providers: [:twitter, :facebook]
+         :omniauthable, omniauth_providers: [:twitter]
   devise :authentication_keys => [:login]
 
   def self.from_omniauth(auth)
